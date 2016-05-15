@@ -1,0 +1,40 @@
+Description: Disable bundler
+ The Debian package has proper dependencies so we don't need bundler.
+ That said we still run bundler at build time to verify that
+ the dependencies are effectively available as gems, that's why
+ we drop the test gems that we don't have as build-dependencies
+ from the Gemfile.
+Author: Raphaël Hertzog <buxy@kali.org>
+Forwarded: not-needed
+Last-Update: 2014-05-12
+
+--- a/lib/environment.rb
++++ b/lib/environment.rb
+@@ -13,7 +13,7 @@ Encoding.default_external = Encoding::UT
+ 
+ begin
+   # Standard libs
+-  require 'bundler/setup' unless kali_linux?
++  #require 'bundler/setup' unless kali_linux? # Disabled for Debian, we have proper dependencies
+   require 'getoptlong'
+   require 'optparse' # Will replace getoptlong
+   require 'uri'
+--- a/Gemfile
++++ b/Gemfile
+@@ -9,9 +9,10 @@ gem 'yajl-ruby' # Better JSON parser reg
+ gem 'terminal-table', '~>1.4.5'
+ gem 'ruby-progressbar', '>=1.6.0'
+ 
+-group :test do
+-  gem 'webmock', '>=1.17.2'
+-  gem 'simplecov'
+-  gem 'rspec', '>=3.3.0'
+-  gem 'rspec-its'
+-end
++# Disabled so that we can run bundle install without those libs
++#group :test do
++#  gem 'webmock', '>=1.17.2'
++#  gem 'simplecov'
++#  gem 'rspec', '>=3.3.0'
++#  gem 'rspec-its'
++#end

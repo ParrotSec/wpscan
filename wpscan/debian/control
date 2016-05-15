@@ -1,0 +1,41 @@
+Source: wpscan
+Section: non-free/utils
+Priority: extra
+Maintainer: Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
+Build-Depends: debhelper (>= 9),
+               ruby,
+               rubygems,
+               bundler,
+               rubygems-integration,
+               ruby-typhoeus (>= 0.8.0),
+               ruby-nokogiri,
+               ruby-yajl,
+               ruby-terminal-table,
+               ruby-ruby-progressbar (>= 1.6.0~),
+               ruby-addressable,
+               unzip,
+               ruby-rspec,
+               ruby-rspec-its,
+               ruby-webmock,
+               ruby-simplecov,
+Standards-Version: 3.9.8
+Homepage: http://www.wpscan.org
+Vcs-Git: git://github.com/parrotsec/wpscan.git
+Vcs-Browser: http://github.com/parrotsec/wpscan
+
+Package: wpscan
+Architecture: all
+Depends:
+ ruby | ruby-interpreter,
+ rubygems,
+ bundler,
+# Directly required gems
+ ruby-typhoeus (>= 0.8.0),
+ ruby-nokogiri (>= 1.6.7.1),
+ ruby-terminal-table (>=1.4.5),
+ ruby-ruby-progressbar (>= 1.6.0~),
+ ruby-addressable,
+ ruby-yajl,
+ ${misc:Depends}
+Description: Black box WordPress vulnerability scanner
+ WPScan scans remote WordPress installations to find security issues.
