@@ -1,6 +1,31 @@
 # Changelog
 ## Master
-[Work in progress](https://github.com/wpscanteam/wpscan/compare/2.9.1...master)
+[Work in progress](https://github.com/wpscanteam/wpscan/compare/2.9.2...master)
+
+## Version 2.9.2
+Released: 2016-11-15
+
+* Fixed error when detecting plugins with UTF-8 characters
+* Use all possible finders to verify a detected version
+* Fix error when detecting a WordPress version not in our database
+* Added some additional clarification on error messages
+* Upgrade terminal-table gem
+* Add --cache-dir option
+* Add --disable-tls-checks options
+* Improve/add additional plugin passive detections
+* Remove scripts when calculating page hashes
+* Many other small bug fixes.
+
+WPScan Database Statistics:
+* Total tracked wordpresses: 194
+* Total tracked plugins: 63703
+* Total tracked themes: 13835
+* Total vulnerable wordpresses: 177
+* Total vulnerable plugins: 1382
+* Total vulnerable themes: 379
+* Total wordpress vulnerabilities: 2617
+* Total plugin vulnerabilities: 2190
+* Total theme vulnerabilities: 452
 
 ## Version 2.9.1
 Released: 2016-05-06

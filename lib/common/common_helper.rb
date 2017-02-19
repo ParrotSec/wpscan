@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-LIB_DIR              = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+LIB_DIR              = File.expand_path(File.join(__dir__, '..'))
 ROOT_DIR             = File.expand_path(File.join(LIB_DIR, '..')) # expand_path is used to get "wpscan/" instead of "wpscan/lib/../"
 DATA_DIR             = File.join(ROOT_DIR, 'data')
 CONF_DIR             = File.join(ROOT_DIR, 'conf')
@@ -30,7 +30,7 @@ LAST_UPDATE_FILE  = File.join(DATA_DIR, '.last_update')
 
 MIN_RUBY_VERSION = '2.1.9'
 
-WPSCAN_VERSION = '2.9.1'
+WPSCAN_VERSION = '2.9.2'
 
 $LOAD_PATH.unshift(LIB_DIR)
 $LOAD_PATH.unshift(WPSCAN_LIB_DIR)
@@ -151,7 +151,7 @@ def banner
   puts '_______________________________________________________________'
   puts '        __          _______   _____                  '
   puts '        \\ \\        / /  __ \\ / ____|                 '
-  puts '         \\ \\  /\\  / /| |__) | (___   ___  __ _ _ __  '
+  puts '         \\ \\  /\\  / /| |__) | (___   ___  __ _ _ __ ®'
   puts '          \\ \\/  \\/ / |  ___/ \\___ \\ / __|/ _` | \'_ \\ '
   puts '           \\  /\\  /  | |     ____) | (__| (_| | | | |'
   puts '            \\/  \\/   |_|    |_____/ \\___|\\__,_|_| |_|'

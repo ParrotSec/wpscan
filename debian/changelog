@@ -1,3 +1,10 @@
+wpscan (2.9.2-0parrot0) testing; urgency=medium
+
+  * Import new upstream release
+  * Rebuild using Parrot build system
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Sun, 19 Feb 2017 03:34:09 +0100
+
 wpscan (2.9.1-1parrot0) testing; urgency=medium
 
   * Import from kali repo

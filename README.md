@@ -4,16 +4,17 @@
 [![Build Status](https://travis-ci.org/wpscanteam/wpscan.svg?branch=master)](https://travis-ci.org/wpscanteam/wpscan)
 [![Code Climate](https://img.shields.io/codeclimate/github/wpscanteam/wpscan.svg)](https://codeclimate.com/github/wpscanteam/wpscan)
 [![Dependency Status](https://img.shields.io/gemnasium/wpscanteam/wpscan.svg)](https://gemnasium.com/wpscanteam/wpscan)
+[![Docker Pulls](https://img.shields.io/docker/pulls/wpscanteam/wpscan.svg)](https://hub.docker.com/r/wpscanteam/wpscan/)
 
-#### LICENSE
+# LICENSE
 
-#### WPScan Public Source License
+## WPScan Public Source License
 
 The WPScan software (henceforth referred to simply as "WPScan") is dual-licensed - Copyright 2011-2016 WPScan Team.
 
 Cases that include commercialization of WPScan require a commercial, non-free license. Otherwise, WPScan can be used without charge under the terms set out below.
 
-##### 1. Definitions
+### 1. Definitions
 
 1.1 "License" means this document.
 
@@ -21,7 +22,7 @@ Cases that include commercialization of WPScan require a commercial, non-free li
 
 1.3 "WPScan Team" means WPScan’s core developers, an updated list of whom can be found within the CREDITS file.
 
-##### 2. Commercialization
+### 2. Commercialization
 
 A commercial use is one intended for commercial advantage or monetary compensation.
 
@@ -44,7 +45,7 @@ We may grant commercial licenses at no monetary cost at our own discretion if th
 
 Free-use Terms and Conditions;
 
-##### 3. Redistribution
+### 3. Redistribution
 
 Redistribution is permitted under the following conditions:
 
@@ -52,35 +53,39 @@ Redistribution is permitted under the following conditions:
  - Unmodified Copyright notices are provided with WPScan.
  - Does not conflict with the commercialization clause.
 
-##### 4. Copying
+### 4. Copying
 
 Copying is permitted so long as it does not conflict with the Redistribution clause.
 
-##### 5. Modification
+### 5. Modification
 
 Modification is permitted so long as it does not conflict with the Redistribution clause.
 
-##### 6. Contributions
+### 6. Contributions
 
 Any Contributions assume the Contributor grants the WPScan Team the unlimited, non-exclusive right to reuse, modify and relicense the Contributor's content.
 
-##### 7. Support
+### 7. Support
 
 WPScan is provided under an AS-IS basis and without any support, updates or maintenance. Support, updates and maintenance may be given according to the sole discretion of the WPScan Team.
 
-##### 8. Disclaimer of Warranty
+### 8. Disclaimer of Warranty
 
 WPScan is provided under this License on an “as is” basis, without warranty of any kind, either expressed, implied, or statutory, including, without limitation, warranties that the WPScan is free of defects, merchantable, fit for a particular purpose or non-infringing.
 
-##### 9. Limitation of Liability
+### 9. Limitation of Liability
 
 To the extent permitted under Law, WPScan is provided under an AS-IS basis. The WPScan Team shall never, and without any limit, be liable for any damage, cost, expense or any other payment incurred as a result of WPScan's actions, failure, bugs and/or any other interaction between WPScan and end-equipment, computers, other software or any 3rd party, end-equipment, computer or services.
 
-##### 10. Disclaimer
+### 10. Disclaimer
 
 Running WPScan against websites without prior mutual consent may be illegal in your country. The WPScan Team accept no liability and are not responsible for any misuse or damage caused by WPScan.
 
-#### INSTALL
+### 11. Trademark
+
+The "wpscan" term is a registered trademark. This License does not grant the use of the "wpscan" trademark or the use of the WPScan logo.
+
+# INSTALL
 
 WPScan comes pre-installed on the following Linux distributions:
 
@@ -90,69 +95,44 @@ WPScan comes pre-installed on the following Linux distributions:
 - [SamuraiWTF](http://samurai.inguardians.com/)
 - [BlackArch](http://blackarch.org/)
 
-Prerequisites:
+Windows is not supported
+
+## Prerequisites
 
 - Ruby >= 2.1.9 - Recommended: 2.3.1
 - Curl >= 7.21  - Recommended: latest - FYI the 7.29 has a segfault
 - RubyGems      - Recommended: latest
 - Git
 
-Windows is not supported.
-If installed from Github update the code base with ```git pull```. The databases are updated with ```wpscan.rb --update```.
+### Installing dependencies on Ubuntu
 
-####Installing on Ubuntu:
+    sudo apt-get install libcurl4-openssl-dev libxml2 libxml2-dev libxslt1-dev ruby-dev build-essential libgmp-dev zlib1g-dev
 
-Before Ubuntu 14.04:
-
-    sudo apt-get install libcurl4-openssl-dev libopenssl-ruby libxml2 libxml2-dev libxslt1-dev ruby-dev
-    git clone https://github.com/wpscanteam/wpscan.git
-    cd wpscan
-    sudo gem install bundler && bundle install --without test
-
-From Ubuntu 14.04:
-
-    sudo apt-get install libcurl4-openssl-dev libxml2 libxml2-dev libxslt1-dev ruby-dev build-essential libgmp-dev
-    git clone https://github.com/wpscanteam/wpscan.git
-    cd wpscan
-    sudo gem install bundler && bundle install --without test
-
-####Installing on Debian:
+### Installing dependencies on Debian
 
     sudo apt-get install git ruby ruby-dev libcurl4-openssl-dev make zlib1g-dev
-    git clone https://github.com/wpscanteam/wpscan.git
-    cd wpscan
-    sudo gem install bundler
-    bundle install --without test --path vendor/bundle
 
-####Installing on Fedora:
+### Installing dependencies on Fedora
 
     sudo dnf install gcc ruby-devel libxml2 libxml2-devel libxslt libxslt-devel libcurl-devel patch rpm-build
-    git clone https://github.com/wpscanteam/wpscan.git
-    cd wpscan
-    sudo gem install bundler && bundle install --without test
 
-####Installing on Archlinux:
+### Installing dependencies on Arch Linux
 
     pacman -Syu ruby
     pacman -Syu libyaml
-    git clone https://github.com/wpscanteam/wpscan.git
-    cd wpscan
-    sudo gem install bundler && bundle install --without test
-    gem install typhoeus
-    gem install nokogiri
 
-####Installing on Mac OSX:
+### Installing dependencies on Mac OSX
 
 Apple Xcode, Command Line Tools and the libffi are needed (to be able to install the FFI gem), See [http://stackoverflow.com/questions/17775115/cant-setup-ruby-environment-installing-fii-gem-error](http://stackoverflow.com/questions/17775115/cant-setup-ruby-environment-installing-fii-gem-error)
 
-    git clone https://github.com/wpscanteam/wpscan.git
-    cd wpscan
-    sudo gem install bundler && sudo bundle install --without test
+## Installing with RVM (recommended)
 
-####Installing with RVM (recommended):
+If you are using GNOME Terminal, there are some steps required before executing the commands. See here for more information:
+https://rvm.io/integration/gnome-terminal#integrating-rvm-with-gnome-terminal
 
     # Install all prerequisites for your OS (look above)
     cd ~
+    curl -sSL https://rvm.io/mpapis.asc | gpg --import -
     curl -sSL https://get.rvm.io | bash -s stable
     source ~/.rvm/scripts/rvm
     echo "source ~/.rvm/scripts/rvm" >> ~/.bashrc
@@ -165,7 +145,26 @@ Apple Xcode, Command Line Tools and the libffi are needed (to be able to install
     gem install bundler
     bundle install --without test
 
-#### KNOWN ISSUES
+## Installing manually (not recommended)
+
+    git clone https://github.com/wpscanteam/wpscan.git
+    cd wpscan
+    sudo gem install bundler && bundle install --without test
+
+# DOCKER
+Pull the repo with `docker pull wpscanteam/wpscan`
+
+## Start WPScan
+
+```
+docker run --rm wpscanteam/wpscan -u http://yourblog.com [options]
+```
+
+For the available Options, please see https://github.com/wpscanteam/wpscan#wpscan-arguments
+
+Published on https://hub.docker.com/r/wpscanteam/wpscan/
+
+# KNOWN ISSUES
 
   - Typhoeus segmentation fault
 
@@ -208,7 +207,7 @@ Apple Xcode, Command Line Tools and the libffi are needed (to be able to install
 
       See [https://github.com/wpscanteam/wpscan/issues/148](https://github.com/wpscanteam/wpscan/issues/148)
 
-#### WPSCAN ARGUMENTS
+# WPSCAN ARGUMENTS
 
     --update                            Update the database to the latest version.
     --url       | -u <target url>       The WordPress URL/domain to scan.
@@ -232,12 +231,17 @@ Apple Xcode, Command Line Tools and the libffi are needed (to be able to install
                                         You do not need to provide the regexp delimiters, but you must write the quotes (simple or double).
     --config-file  | -c <config file>   Use the specified config file, see the example.conf.json.
     --user-agent   | -a <User-Agent>    Use the specified User-Agent.
-    --cookie <String>                   String to read cookies from.
+    --cookie <string>                   String to read cookies from.
     --random-agent | -r                 Use a random User-Agent.
     --follow-redirection                If the target url has a redirection, it will be followed without asking if you wanted to do so or not
     --batch                             Never ask for user input, use the default behaviour.
     --no-color                          Do not use colors in the output.
-    --wp-content-dir <wp content dir>   WPScan try to find the content directory (ie wp-content) by scanning the index page, however you can specified it.
+    --log                               Creates a log.txt file with WPScan's output.
+    --no-banner                         Prevents the WPScan banner from being displayed.
+    --disable-accept-header             Prevents WPScan sending the Accept HTTP header.
+    --disable-referer                   Prevents setting the Referer header.
+    --disable-tls-checks                Disables SSL/TLS certificate verification.
+    --wp-content-dir <wp content dir>   WPScan try to find the content directory (ie wp-content) by scanning the index page, however you can specify it.
                                         Subdirectories are allowed.
     --wp-plugins-dir <wp plugins dir>   Same thing than --wp-content-dir but for the plugins directory.
                                         If not supplied, WPScan will use wp-content-dir/plugins. Subdirectories are allowed
@@ -248,17 +252,18 @@ Apple Xcode, Command Line Tools and the libffi are needed (to be able to install
     --wordlist | -w <wordlist>          Supply a wordlist for the password brute forcer.
     --username | -U <username>          Only brute force the supplied username.
     --usernames     <path-to-file>      Only brute force the usernames from the file.
-    --threads  | -t <number of threads> The number of threads to use when multi-threading requests.
+    --cache-dir       <cache-directory> Set the cache directory.
     --cache-ttl       <cache-ttl>       Typhoeus cache TTL.
     --request-timeout <request-timeout> Request Timeout.
     --connect-timeout <connect-timeout> Connect Timeout.
+    --threads  | -t <number of threads> The number of threads to use when multi-threading requests.
     --max-threads     <max-threads>     Maximum Threads.
     --throttle        <milliseconds>    Milliseconds to wait before doing another web request. If used, the --threads should be set to 1.
     --help     | -h                     This help screen.
     --verbose  | -v                     Verbose output.
     --version                           Output the current version and exit.
 
-#### WPSCAN EXAMPLES
+# WPSCAN EXAMPLES
 
 Do 'non-intrusive' checks...
 
@@ -292,26 +297,22 @@ Debug output...
 
 ```ruby wpscan.rb --url www.example.com --debug-output 2>debug.log```
 
-#### PROJECT HOME
+# PROJECT HOME
 
 [http://www.wpscan.org](http://www.wpscan.org)
 
-#### VULNERABILITY DATABASE
+# VULNERABILITY DATABASE
 
 [https://wpvulndb.com](https://wpvulndb.com)
 
-#### GIT REPOSITORY
+# GIT REPOSITORY
 
 [https://github.com/wpscanteam/wpscan](https://github.com/wpscanteam/wpscan)
 
-#### ISSUES
+# ISSUES
 
 [https://github.com/wpscanteam/wpscan/issues](https://github.com/wpscanteam/wpscan/issues)
 
-#### DEVELOPER DOCUMENTATION
+# DEVELOPER DOCUMENTATION
 
 [http://rdoc.info/github/wpscanteam/wpscan/frames](http://rdoc.info/github/wpscanteam/wpscan/frames)
-
-#### SPECIAL THANKS
-
-[RandomStorm](https://www.randomstorm.com)

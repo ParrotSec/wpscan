@@ -1,5 +1,4 @@
 example.conf.json usr/share/wpscan
-data usr/share/wpscan/
 lib usr/share/wpscan/
 Gemfile usr/share/wpscan/
 *.rb usr/share/wpscan/

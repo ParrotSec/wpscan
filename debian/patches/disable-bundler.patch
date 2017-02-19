@@ -10,7 +10,7 @@ Last-Update: 2014-05-12
 
 --- a/lib/environment.rb
 +++ b/lib/environment.rb
-@@ -13,7 +13,7 @@ Encoding.default_external = Encoding::UT
+@@ -14,7 +14,7 @@ Encoding.default_external = Encoding::UT
  
  begin
    # Standard libs
@@ -21,8 +21,8 @@ Last-Update: 2014-05-12
    require 'uri'
 --- a/Gemfile
 +++ b/Gemfile
-@@ -9,9 +9,10 @@ gem 'yajl-ruby' # Better JSON parser reg
- gem 'terminal-table', '~>1.4.5'
+@@ -7,9 +7,10 @@ gem 'yajl-ruby' # Better JSON parser reg
+ gem 'terminal-table', '>=1.6.0'
  gem 'ruby-progressbar', '>=1.6.0'
  
 -group :test do

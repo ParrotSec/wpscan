@@ -84,16 +84,10 @@ License: Dual-License
  Running WPScan against websites without prior mutual consent may be
  illegal in your country. The WPScan Team accept no liability and are not
  responsible for any misuse or damage caused by WPScan.
-
-Files: default_data/*
-Copyright: 2011-2016 WPScan Team
-License: other
- This data can only be used within the WPScan software
- (https://github.com/wpscanteam/wpscan) and within the WPScan Vulnerability
- Database (https://wpvulndb.com).
  .
- This data can not be used within a commercial setting unless explicitly
- granted by the WPScan Team.
+ 11. Trademark
+ The "wpscan" term is a registered trademark. This License does not grant
+ the use of the "wpscan" trademark or the use of the WPScan logo.
 
 Files: debian/*
 Copyright: 2012 dookie <dookie@kali.org>

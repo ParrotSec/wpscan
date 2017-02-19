@@ -43,7 +43,11 @@ class WpscanOptions
     :connect_timeout,
     :max_threads,
     :no_banner,
-    :throttle
+    :throttle,
+    :disable_accept_header,
+    :disable_referer,
+    :cache_dir,
+    :disable_tls_checks
   ]
 
   attr_accessor *ACCESSOR_OPTIONS
@@ -208,7 +212,9 @@ class WpscanOptions
 
       enumerate_options_from_string(cli_value)
     else
-      raise "Unknow option : #{cli_option} with value #{cli_value}"
+      text = "Unknown option : #{cli_option}"
+      text << " with value #{cli_value}" if (cli_value && !cli_value.empty?)
+      raise text
     end
   end
 
@@ -282,7 +288,11 @@ class WpscanOptions
       ['--cookie', GetoptLong::REQUIRED_ARGUMENT],
       ['--log', GetoptLong::NO_ARGUMENT],
       ['--no-banner', GetoptLong::NO_ARGUMENT],
-      ['--throttle', GetoptLong::REQUIRED_ARGUMENT]
+      ['--throttle', GetoptLong::REQUIRED_ARGUMENT],
+      ['--disable-accept-header', GetoptLong::NO_ARGUMENT],
+      ['--disable-referer', GetoptLong::NO_ARGUMENT],
+      ['--cache-dir', GetoptLong::REQUIRED_ARGUMENT],
+      ['--disable-tls-checks', GetoptLong::NO_ARGUMENT],
     )
   end
 

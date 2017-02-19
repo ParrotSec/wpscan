@@ -1,7 +1,8 @@
 Source: wpscan
 Section: non-free/utils
 Priority: extra
-Maintainer: Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
+Maintainer: Parrot Dev Team <parrot-devel@lists.parrotsec.org>
+Uploaders: Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
 Build-Depends: debhelper (>= 9),
                ruby,
                rubygems,
@@ -10,7 +11,7 @@ Build-Depends: debhelper (>= 9),
                ruby-typhoeus (>= 0.8.0),
                ruby-nokogiri,
                ruby-yajl,
-               ruby-terminal-table,
+               ruby-terminal-table (>= 1.6.0),
                ruby-ruby-progressbar (>= 1.6.0~),
                ruby-addressable,
                unzip,
@@ -20,8 +21,8 @@ Build-Depends: debhelper (>= 9),
                ruby-simplecov,
 Standards-Version: 3.9.8
 Homepage: http://www.wpscan.org
-Vcs-Git: git://github.com/parrotsec/wpscan.git
-Vcs-Browser: http://github.com/parrotsec/wpscan
+Vcs-Git: https://github.com/parrotsec/wpscan
+Vcs-Browser: https://github.com/parrotsec/wpscan
 
 Package: wpscan
 Architecture: all
@@ -30,9 +31,9 @@ Depends:
  rubygems,
  bundler,
 # Directly required gems
- ruby-typhoeus (>= 0.8.0),
- ruby-nokogiri (>= 1.6.7.1),
- ruby-terminal-table (>=1.4.5),
+ ruby-typhoeus (>= 1.0.0),
+ ruby-nokogiri (>= 1.6.7.2),
+ ruby-terminal-table (>= 1.6.0),
  ruby-ruby-progressbar (>= 1.6.0~),
  ruby-addressable,
  ruby-yajl,

@@ -11,8 +11,7 @@ override_dh_auto_build:
 
 override_dh_install:
 	mkdir -p debian/wpscan/usr/share/wpscan
-	unzip data.zip -d debian/wpscan/usr/share/wpscan
-	mv debian/wpscan/usr/share/wpscan/data debian/wpscan/usr/share/wpscan/default_data
+	mv data debian/wpscan/usr/share/wpscan/default_data
 	dh_install -X.gitignore
 	rm debian/wpscan/usr/share/wpscan/default_data/.gitignore
 	rm debian/wpscan/usr/share/wpscan/default_data/LICENSE
@@ -25,4 +24,6 @@ override_dh_fixperms:
 	chmod -R 644 debian/wpscan/usr/share/wpscan/lib/common/models/*/*.rb
 
 override_dh_auto_test:
+	# unzip before tests because tests need data
+	unzip -o data.zip
 	RUBYLIB=$(CURDIR)/lib ruby debian/ruby-tests.rb
