@@ -2,8 +2,7 @@ language: ruby
 sudo: false
 cache: bundler
 rvm:
-  # Still not in Travis :(
-  # - 2.1.9
+  - 2.1.9
   - 2.2.0
   - 2.2.1
   - 2.2.2
@@ -13,6 +12,8 @@ rvm:
   - 2.3.1
 before_install:
   - "echo 'gem: --no-ri --no-rdoc' > ~/.gemrc"
+before_script:
+  - "unzip -o $TRAVIS_BUILD_DIR/data.zip -d $TRAVIS_BUILD_DIR"
 script: bundle exec rspec
 notifications:
   email:

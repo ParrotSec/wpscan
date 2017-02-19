@@ -31,3 +31,11 @@ class DownloadError < HttpError
     "Unable to get #{failure_details}"
   end
 end
+
+class ChecksumError < StandardError
+  attr_reader :file
+
+  def initialize(file)
+    @file = file
+  end
+end

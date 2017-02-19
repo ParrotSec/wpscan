@@ -124,11 +124,10 @@ describe Browser do
   describe '#merge_request_params' do
     let(:params)              { {} }
     let(:cookie_jar)          { CACHE_DIR + '/browser/cookie-jar' }
+    let(:user_agent)          { 'SomeUA' }
     let(:default_expectation) {
       {
         cache_ttl: 250,
-        headers: { 'User-Agent' => 'SomeUA' },
-        ssl_verifypeer: false, ssl_verifyhost: 0,
         cookiejar: cookie_jar, cookiefile: cookie_jar,
         timeout: 60, connecttimeout: 10,
         maxredirs: 3,
@@ -137,14 +136,23 @@ describe Browser do
     }
 
     after :each do
-      browser.user_agent = 'SomeUA'
+      browser.user_agent = user_agent
       browser.cache_ttl = 250
 
       expect(browser.merge_request_params(params)).to eq @expected
+      expect(Typhoeus::Config.user_agent).to eq user_agent
     end
 
     it 'sets the User-Agent header field and cache_ttl' do
       @expected = default_expectation
+    end
+
+    context 'when @user_agent' do
+      let(:user_agent) { 'test' }
+
+      it 'sets the User-Agent' do
+        @expected = default_expectation
+      end
     end
 
     context 'when @proxy' do
@@ -177,7 +185,7 @@ describe Browser do
       it 'appends the basic_auth' do
         browser.basic_auth  = 'user:pass'
         @expected           = default_expectation.merge(
-          headers: default_expectation[:headers].merge('Authorization' => 'Basic ' + Base64.encode64('user:pass').chomp)
+          headers: { 'Authorization' => 'Basic ' + Base64.encode64('user:pass').chomp }
         )
       end
     end
@@ -204,6 +212,13 @@ describe Browser do
 
       it 'sets the cookie' do
         @expected = default_expectation.merge(cookie: cookie)
+      end
+    end
+
+    context 'when @disable_tls_checks' do
+      it 'disables tls checks' do
+        browser.disable_tls_checks = true
+        @expected = default_expectation.merge(ssl_verifypeer: 0, ssl_verifyhost: 0)
       end
     end
   end

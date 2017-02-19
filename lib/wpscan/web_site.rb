@@ -21,6 +21,29 @@ class WebSite
     @uri.to_s
   end
 
+  # Checks if the remote website has ssl errors
+  def ssl_error?
+    return false unless @uri.scheme == 'https'
+    c = get_root_path_return_code
+    # http://www.rubydoc.info/github/typhoeus/ethon/Ethon/Easy:return_code
+    return (
+      c == :ssl_connect_error ||
+      c == :peer_failed_verification ||
+      c == :ssl_certproblem ||
+      c == :ssl_cipher ||
+      c == :ssl_cacert ||
+      c == :ssl_cacert_badfile ||
+      c == :ssl_issuer_error ||
+      c == :ssl_crl_badfile ||
+      c == :ssl_engine_setfailed ||
+      c == :ssl_engine_notfound
+    )
+  end
+
+  def get_root_path_return_code
+    Browser.get(@uri.to_s).return_code
+  end
+
   # Checks if the remote website is up.
   def online?
     Browser.get(@uri.to_s).code != 0
@@ -68,15 +91,18 @@ class WebSite
   end
 
   # Compute the MD5 of the page
-  # Comments are deleted from the page to avoid cache generation details
+  # Comments and scripts are deleted from the page to avoid cache generation details
   #
   # @param [ String, Typhoeus::Response ] page The url of the response of the page
   #
   # @return [ String ] The MD5 hash of the page
   def self.page_hash(page)
     page = Browser.get(page, { followlocation: true, cache_ttl: 0 }) unless page.is_a?(Typhoeus::Response)
-
-    Digest::MD5.hexdigest(page.body.gsub(/<!--.*?-->/m, ''))
+    # remove comments
+    page = page.body.gsub(/<!--.*?-->/m, '')
+    # remove javascript stuff
+    page = page.gsub(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/m, '')
+    Digest::MD5.hexdigest(page)
   end
 
   def homepage_hash

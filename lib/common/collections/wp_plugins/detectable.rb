@@ -62,8 +62,12 @@ class WpPlugins < WpItems
         wp_plugins.add('all-in-one-seo-pack', version: $1)
       end
 
-      if body =~ /<!-- This site is optimized with the Yoast WordPress SEO plugin v([^\s]+) -/i
+      if body =~ /<!-- This site is optimized with the Yoast (?:WordPress )?SEO plugin v([^\s]+) -/i
         wp_plugins.add('wordpress-seo', version: $1)
+      end
+
+      if body =~ /<!-- Google Universal Analytics for WordPress v([^\s]+) -/i
+        wp_plugins.add('google-universal-analytics', version: $1)
       end
 
       wp_plugins

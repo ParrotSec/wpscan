@@ -95,6 +95,10 @@ class WpItems < Array
         code = tag.text.to_s
         next if code.empty?
 
+        if ! code.valid_encoding?
+          code = code.encode('UTF-16be', :invalid => :replace, :replace => '?').encode('UTF-8')
+        end
+
         code.scan(code_pattern(wp_target)).flatten.uniq.each do |item_name|
           names << item_name
         end
@@ -116,7 +120,7 @@ class WpItems < Array
       wp_content_dir = wp_target.wp_content_dir
       wp_content_url = wp_target.uri.merge(wp_content_dir).to_s
 
-      url = /#{wp_content_url.gsub(%r{\A(?:http|https)}, 'https?').gsub('/', '\\\\\?\/')}/i
+      url = wp_content_url.gsub(%r{\A(?:http|https)://}, '(?:https?:)?//').gsub('/', '\\\\\?\/')
       content_dir = %r{(?:#{url}|\\?\/\\?\/?#{wp_content_dir})}i
 
       %r{#{content_dir}\\?/#{type}\\?/}

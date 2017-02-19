@@ -5,7 +5,7 @@ $: << '.'
 
 $exit_code = 0
 
-require File.dirname(__FILE__) + '/lib/wpscan/wpscan_helper'
+require File.join(__dir__, 'lib', 'wpscan', 'wpscan_helper')
 
 def main
   # delete old logfile, check if it is a symlink first.
@@ -62,7 +62,7 @@ def main
         exit(1)
       else
         if missing_db_file?
-          puts critical('You can not run a scan without any databases.')
+          puts critical('You can not run a scan without any databases. Extract the data.zip file.')
           exit(1)
         end
       end
@@ -86,9 +86,13 @@ def main
       raise 'We do not support scanning *.wordpress.com hosted blogs'
     end
 
+    if wp_target.ssl_error?
+      raise "The target site returned an SSL/TLS error. You can try again using the --disable-tls-checks option.\nError: #{wp_target.get_root_path_return_code}\nSee here for a detailed explanation of the error: http://www.rubydoc.info/github/typhoeus/ethon/Ethon/Easy:return_code"
+    end
+
     # Remote website up?
     unless wp_target.online?
-      raise "The WordPress URL supplied '#{wp_target.uri}' seems to be down."
+      raise "The WordPress URL supplied '#{wp_target.uri}' seems to be down. Maybe the site is blocking wpscan so you can try the --random-agent parameter."
     end
 
     if wpscan_options.proxy
@@ -372,7 +376,7 @@ def main
       puts info('Enumerating usernames ...')
 
       if wp_target.has_plugin?('stop-user-enumeration')
-        puts warning("Stop User Enumeration plugin detected, results might be empty. However a bypass exists for v1.2.8 and below, see stop_user_enumeration_bypass.rb in #{File.expand_path(File.dirname(__FILE__))}")
+        puts warning("Stop User Enumeration plugin detected, results might be empty. However a bypass exists for v1.2.8 and below, see stop_user_enumeration_bypass.rb in #{__dir__}")
       end
 
       wp_users = WpUsers.aggressive_detection(wp_target,
@@ -452,8 +456,22 @@ def main
     puts info("Memory used: #{used_memory.bytes_to_human}") unless windows?
     puts info("Elapsed time: #{Time.at(elapsed).utc.strftime('%H:%M:%S')}")
 
+  # do nothing on interrupt
   rescue Interrupt
-    # do nothing on interrupt
+    exit(1)
+  # Error on Updating
+  rescue ChecksumError => e
+    puts critical(e.message)
+
+    if e.file
+      puts critical('Downloaded File Content:')
+      puts e.file[0..500]
+      puts '.........'
+      puts
+    end
+
+    puts critical('Please submit this info as an Github issue')
+    exit(1)
   rescue => e
     puts
     puts critical(e.message)
