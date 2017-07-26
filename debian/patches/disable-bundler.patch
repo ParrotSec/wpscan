@@ -1,40 +1,34 @@
-Description: Disable bundler
- The Debian package has proper dependencies so we don't need bundler.
- That said we still run bundler at build time to verify that
- the dependencies are effectively available as gems, that's why
- we drop the test gems that we don't have as build-dependencies
- from the Gemfile.
-Author: Raphaël Hertzog <buxy@kali.org>
-Forwarded: not-needed
-Last-Update: 2014-05-12
+Description: Disable bundler as it is provided by the system package.
+Author: Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
+Last-Update: 2017-07-26
 
---- a/lib/environment.rb
-+++ b/lib/environment.rb
-@@ -14,7 +14,7 @@ Encoding.default_external = Encoding::UT
- 
- begin
-   # Standard libs
--  require 'bundler/setup' unless kali_linux?
-+  #require 'bundler/setup' unless kali_linux? # Disabled for Debian, we have proper dependencies
-   require 'getoptlong'
-   require 'optparse' # Will replace getoptlong
-   require 'uri'
---- a/Gemfile
-+++ b/Gemfile
-@@ -7,9 +7,10 @@ gem 'yajl-ruby' # Better JSON parser reg
+--- wpscan-2.9.3.orig/Gemfile
++++ wpscan-2.9.3/Gemfile
+@@ -7,9 +7,10 @@ gem 'yajl-ruby', '>=1.3.0' # Better JSON
  gem 'terminal-table', '>=1.6.0'
- gem 'ruby-progressbar', '>=1.6.0'
+ gem 'ruby-progressbar', '>=1.8.1'
  
 -group :test do
--  gem 'webmock', '>=1.17.2'
--  gem 'simplecov'
--  gem 'rspec', '>=3.3.0'
--  gem 'rspec-its'
+-  gem 'webmock', '>=2.3.2'
+-  gem 'simplecov', '>=0.13.0'
+-  gem 'rspec', '>=3.5.0'
+-  gem 'rspec-its', '>=1.2.0'
 -end
 +# Disabled so that we can run bundle install without those libs
 +#group :test do
-+#  gem 'webmock', '>=1.17.2'
-+#  gem 'simplecov'
-+#  gem 'rspec', '>=3.3.0'
-+#  gem 'rspec-its'
++#  gem 'webmock', '>=2.3.2'
++#  gem 'simplecov', '>=0.13.0'
++#  gem 'rspec', '>=3.5.0'
++#  gem 'rspec-its', '>=1.2.0'
 +#end
+--- wpscan-2.9.3.orig/lib/environment.rb
++++ wpscan-2.9.3/lib/environment.rb
+@@ -15,7 +15,7 @@ Encoding.default_external = Encoding::UT
+ begin
+   # Standard libs
+   require 'readline'
+-  require 'bundler/setup' unless kali_linux?
++#  require 'bundler/setup' unless kali_linux? Disabled for Debian, we have proper dependencies
+   require 'getoptlong'
+   require 'optparse' # Will replace getoptlong
+   require 'uri'
