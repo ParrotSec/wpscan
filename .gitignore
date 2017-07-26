@@ -1,3 +1,4 @@
+.ash_history
 cache
 coverage
 .bundle
@@ -6,10 +7,10 @@ coverage
 *.sublime-*
 .idea
 .*.swp
-Gemfile.lock
 log.txt
 .yardoc
 debug.log
 wordlist.txt
 rspec_results.html
 data/
+vendor/

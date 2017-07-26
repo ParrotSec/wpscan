@@ -95,11 +95,49 @@ WPScan comes pre-installed on the following Linux distributions:
 - [SamuraiWTF](http://samurai.inguardians.com/)
 - [BlackArch](http://blackarch.org/)
 
+On macOS WPScan is packaged by [Homebrew](https://brew.sh/) as [`wpscan`](http://braumeister.org/formula/wpscan).
+
 Windows is not supported
+
+We suggest you use our official Docker image from https://hub.docker.com/r/wpscanteam/wpscan/ to avoid installation problems.
+
+# DOCKER
+Pull the repo with `docker pull wpscanteam/wpscan`
+
+## Start WPScan
+
+```
+docker run -it --rm wpscanteam/wpscan -u https://yourblog.com [options]
+```
+
+For the available Options, please see https://github.com/wpscanteam/wpscan#wpscan-arguments
+
+If you run the git version of wpscan we included some binstubs in ./bin for easier start of wpscan.
+
+## Examples
+
+Mount a local wordlist to the docker container and start a bruteforce attack for user admin
+
+```
+docker run -it --rm -v ~/wordlists:/wordlists wpscanteam/wpscan --url https://yourblog.com --wordlist /wordlists/crackstation.txt --username admin
+```
+
+Use logfile option
+```
+# the file must exist prior to starting the container, otherwise docker will create a directory with the filename
+touch ~/FILENAME
+docker run -it --rm -v ~/FILENAME:/wpscan/output.txt wpscanteam/wpscan --url https://yourblog.com --log /wpscan/output.txt
+```
+
+(This mounts the host directory `~/wordlists` to the container in the path `/wordlists`)
+
+Published on https://hub.docker.com/r/wpscanteam/wpscan/
+
+# Manual install
 
 ## Prerequisites
 
-- Ruby >= 2.1.9 - Recommended: 2.3.1
+- Ruby >= 2.1.9 - Recommended: 2.4.1
 - Curl >= 7.21  - Recommended: latest - FYI the 7.29 has a segfault
 - RubyGems      - Recommended: latest
 - Git
@@ -110,7 +148,7 @@ Windows is not supported
 
 ### Installing dependencies on Debian
 
-    sudo apt-get install git ruby ruby-dev libcurl4-openssl-dev make zlib1g-dev
+    sudo apt-get install gcc git ruby ruby-dev libcurl4-openssl-dev make zlib1g-dev
 
 ### Installing dependencies on Fedora
 
@@ -121,11 +159,11 @@ Windows is not supported
     pacman -Syu ruby
     pacman -Syu libyaml
 
-### Installing dependencies on Mac OSX
+### Installing dependencies on macOS
 
 Apple Xcode, Command Line Tools and the libffi are needed (to be able to install the FFI gem), See [http://stackoverflow.com/questions/17775115/cant-setup-ruby-environment-installing-fii-gem-error](http://stackoverflow.com/questions/17775115/cant-setup-ruby-environment-installing-fii-gem-error)
 
-## Installing with RVM (recommended)
+## Installing with RVM (recommended when doing a manual install)
 
 If you are using GNOME Terminal, there are some steps required before executing the commands. See here for more information:
 https://rvm.io/integration/gnome-terminal#integrating-rvm-with-gnome-terminal
@@ -136,10 +174,9 @@ https://rvm.io/integration/gnome-terminal#integrating-rvm-with-gnome-terminal
     curl -sSL https://get.rvm.io | bash -s stable
     source ~/.rvm/scripts/rvm
     echo "source ~/.rvm/scripts/rvm" >> ~/.bashrc
-    rvm install 2.3.1
-    rvm use 2.3.1 --default
+    rvm install 2.4.1
+    rvm use 2.4.1 --default
     echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-    gem install bundler
     git clone https://github.com/wpscanteam/wpscan.git
     cd wpscan
     gem install bundler
@@ -150,19 +187,6 @@ https://rvm.io/integration/gnome-terminal#integrating-rvm-with-gnome-terminal
     git clone https://github.com/wpscanteam/wpscan.git
     cd wpscan
     sudo gem install bundler && bundle install --without test
-
-# DOCKER
-Pull the repo with `docker pull wpscanteam/wpscan`
-
-## Start WPScan
-
-```
-docker run --rm wpscanteam/wpscan -u http://yourblog.com [options]
-```
-
-For the available Options, please see https://github.com/wpscanteam/wpscan#wpscan-arguments
-
-Published on https://hub.docker.com/r/wpscanteam/wpscan/
 
 # KNOWN ISSUES
 
@@ -236,7 +260,7 @@ Published on https://hub.docker.com/r/wpscanteam/wpscan/
     --follow-redirection                If the target url has a redirection, it will be followed without asking if you wanted to do so or not
     --batch                             Never ask for user input, use the default behaviour.
     --no-color                          Do not use colors in the output.
-    --log                               Creates a log.txt file with WPScan's output.
+    --log [filename]                    Creates a log.txt file with WPScan's output if no filename is supplied. Otherwise the filename is used for logging.
     --no-banner                         Prevents the WPScan banner from being displayed.
     --disable-accept-header             Prevents WPScan sending the Accept HTTP header.
     --disable-referer                   Prevents setting the Referer header.
@@ -250,6 +274,7 @@ Published on https://hub.docker.com/r/wpscanteam/wpscan/
     --proxy-auth <username:password>    Supply the proxy login credentials.
     --basic-auth <username:password>    Set the HTTP Basic authentication.
     --wordlist | -w <wordlist>          Supply a wordlist for the password brute forcer.
+                                        If the "-" option is supplied, the wordlist is expected via STDIN.
     --username | -U <username>          Only brute force the supplied username.
     --usernames     <path-to-file>      Only brute force the usernames from the file.
     --cache-dir       <cache-directory> Set the cache directory.
@@ -272,6 +297,10 @@ Do 'non-intrusive' checks...
 Do wordlist password brute force on enumerated users using 50 threads...
 
 ```ruby wpscan.rb --url www.example.com --wordlist darkc0de.lst --threads 50```
+
+Do wordlist password brute force on enumerated users using STDIN as the wordlist...
+
+```crunch 5 13 -f charset.lst mixalpha | ruby wpscan.rb --url www.example.com --wordlist -```
 
 Do wordlist password brute force on the 'admin' username only...
 
