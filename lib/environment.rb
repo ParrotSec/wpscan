@@ -14,16 +14,15 @@ Encoding.default_external = Encoding::UTF_8
 
 begin
   # Standard libs
+  require 'readline'
   require 'bundler/setup' unless kali_linux?
   require 'getoptlong'
   require 'optparse' # Will replace getoptlong
   require 'uri'
   require 'time'
   require 'resolv'
-  require 'xmlrpc/client'
   require 'digest/md5'
   require 'digest/sha1'
-  require 'readline'
   require 'base64'
   require 'rbconfig'
   require 'pp'

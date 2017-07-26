@@ -10,11 +10,18 @@ rvm:
   - 2.2.4
   - 2.3.0
   - 2.3.1
+  - 2.3.2
+  - 2.3.3
+  - 2.4.1
 before_install:
+  - "env"
   - "echo 'gem: --no-ri --no-rdoc' > ~/.gemrc"
+  - "gem install bundler"
+  - "bundler --version"
 before_script:
   - "unzip -o $TRAVIS_BUILD_DIR/data.zip -d $TRAVIS_BUILD_DIR"
-script: bundle exec rspec
+script:
+  - "bundle exec rspec"
 notifications:
   email:
     - team@wpscan.org
